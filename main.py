@@ -1,15 +1,27 @@
 import requests
 import streamlit as st
 from dotenv import load_dotenv
+import tomllib 
 import os
 
 load_dotenv()
 
+def load_config():
+    with open("config.toml", "rb") as config_file:
+        return tomllib.load(config_file)
+        
+config = load_config()
+
 BASE_API_URL = "https://api.langflow.astra.datastax.com"
-LANGFLOW_ID = os.environ.get("LANGFLOW_ID")
-FLOW_ID = os.environ.get("FLOW_ID")
-APPLICATION_TOKEN = os.environ.get("APP_TOKEN") #
-ENDPOINT = "lcf_waterproject" # The endpoint name of the flow
+#LANGFLOW_ID = os.environ.get("LANGFLOW_ID")
+#FLOW_ID = os.environ.get("FLOW_ID")
+#APPLICATION_TOKEN = os.environ.get("APP_TOKEN") #
+
+APPLICATION_TOKEN = config["api"]["APP_TOKEN"]
+LANGFLOW_ID = config["api"]["LANGFLOW_ID"]
+FLOW_ID = config["api"]["FLOW_ID"]
+
+ENDPOINT = "lchf_qa" # The endpoint name of the flow
 
 
 
